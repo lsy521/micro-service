@@ -6,12 +6,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+@Configuration
 @RestController
 public class ComputeController {
 
@@ -19,6 +23,16 @@ public class ComputeController {
 
     @Autowired
     private DiscoveryClient client;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    // 要通过服务名方式调用服务，必须加@LoadBalanced注解，否则只能通过url方式调用
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
 
     @RequestMapping(value = "/**" ,method = RequestMethod.GET)
     public String add(@RequestParam Integer a, @RequestParam Integer b,HttpServletRequest request) {
@@ -32,7 +46,7 @@ public class ComputeController {
     //B服务调用A服务
     @RequestMapping(value="testServiceA",method=RequestMethod.GET)
     public String testServiceB(@RequestParam Integer a,@RequestParam Integer b){
-    	RestTemplate restTemplate=new RestTemplate();
-    	return restTemplate.getForObject("http://localhost:7074/add?a="+a+"&b="+b, String.class);
+    	//RestTemplate restTemplate=new RestTemplate();
+    	return restTemplate.getForObject("http://service-A/add?a="+a+"&b="+b, String.class);
     }
 }
