@@ -15,5 +15,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:7070/eureka/
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.cloud.client.ipAddress}:${server.port}
       
 #进入hystrixdashboard页面，输入：localhost:7081/turbine.stream

@@ -39,8 +39,8 @@ public class FirstFilter extends ZuulFilter  {
         
         log.info("===============");
 
-//        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
-//        System.out.println(request.getRequestURL());
+        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+        //System.out.println(request.getRequestURL());
         
 //        Object accessToken = request.getParameter("accessToken");
 //        if(accessToken == null) {
