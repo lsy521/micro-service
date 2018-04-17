@@ -15,8 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2017年6月14日 上午10:18:13
  */
 
-@Configuration
-@EnableScheduling
+//@Configuration
+//@EnableScheduling
 public class NotifierConfiguration {
 
     @Autowired
