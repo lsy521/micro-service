@@ -14,4 +14,17 @@ eureka:
 ribbon:
   eureka:
     enabled: true
-    
+
+#开启feign断路器支持
+feign:
+  hystrix:
+    enabled: true
+
+#hystrix断路器超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000

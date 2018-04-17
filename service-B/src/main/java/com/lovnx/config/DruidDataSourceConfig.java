@@ -23,7 +23,7 @@ public class DruidDataSourceConfig {
 
     @Bean
     @Primary
-    public DataSource druidDataSource(){
+    public DataSource druidDataSource() {
         DruidDataSource datasource = new DruidDataSource();
 
         datasource.setUrl(dataSourceProperties.getUrl());

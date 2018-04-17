@@ -1,7 +1,5 @@
 package com.lovnx.web;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Configuration
 @RestController
@@ -30,23 +30,28 @@ public class ComputeController {
     // 要通过服务名方式调用服务，必须加@LoadBalanced注解，否则只能通过url方式调用
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
-    @RequestMapping(value = "/**" ,method = RequestMethod.GET)
-    public String add(@RequestParam Integer a, @RequestParam Integer b,HttpServletRequest request) {
-    	System.out.println(request.getRequestURL());
+    @RequestMapping(value = "/**", method = RequestMethod.GET)
+    public String add(@RequestParam Integer a, @RequestParam Integer b, HttpServletRequest request) {
+        System.out.println(request.getRequestURL());
         ServiceInstance instance = client.getLocalServiceInstance();
         Integer r = a + b;
         logger.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", result:" + r);
-        return "From Service-B, Result is " + r+"\nPort:"+instance.getPort();
+//        try {
+//            Thread.sleep(50000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        return "From Service-B2, Result is " + r + "\nPort:" + instance.getPort();
     }
 
     //B服务调用A服务
-    @RequestMapping(value="testServiceA",method=RequestMethod.GET)
-    public String testServiceB(@RequestParam Integer a,@RequestParam Integer b){
-    	//RestTemplate restTemplate=new RestTemplate();
-    	return restTemplate.getForObject("http://service-A/add?a="+a+"&b="+b, String.class);
+    @RequestMapping(value = "testServiceA", method = RequestMethod.GET)
+    public String testServiceB(@RequestParam Integer a, @RequestParam Integer b) {
+        //RestTemplate restTemplate=new RestTemplate();
+        return restTemplate.getForObject("http://service-A/add?a=" + a + "&b=" + b, String.class);
     }
 }

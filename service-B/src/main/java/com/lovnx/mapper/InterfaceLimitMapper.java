@@ -2,8 +2,9 @@ package com.lovnx.mapper;
 
 import com.lovnx.entity.InterfaceLimit;
 import com.lovnx.entity.InterfaceLimitExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface InterfaceLimitMapper {
     int countByExample(InterfaceLimitExample example);

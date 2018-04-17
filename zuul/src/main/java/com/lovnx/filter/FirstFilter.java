@@ -2,15 +2,12 @@ package com.lovnx.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-public class FirstFilter extends ZuulFilter  {
+public class FirstFilter extends ZuulFilter {
 
     private static Logger log = LoggerFactory.getLogger(FirstFilter.class);
 
@@ -34,14 +31,14 @@ public class FirstFilter extends ZuulFilter  {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         //HttpServletResponse response = ctx.getResponse();
-        
+
         log.info("第一级过滤器！");
-        
+
         log.info("===============");
 
         log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
         //System.out.println(request.getRequestURL());
-        
+
 //        Object accessToken = request.getParameter("accessToken");
 //        if(accessToken == null) {
 //            log.warn("access token is empty");

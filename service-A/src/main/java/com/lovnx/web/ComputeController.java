@@ -23,7 +23,7 @@ public class ComputeController {
     private DiscoveryClient client;
 
     @ApiOperation(value = "加法", response = String.class)
-    @RequestMapping(value = "/add" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(@ApiParam("参数a") @RequestParam Integer a, @ApiParam("参数b") @RequestParam Integer b) {
         ServiceInstance instance = client.getLocalServiceInstance();
         Integer r = a + b;
@@ -32,11 +32,11 @@ public class ComputeController {
     }
 
     //A服务调用B服务
-    @ApiOperation(value="b->a测试", response = String.class)
-    @RequestMapping(value="testServiceB",method=RequestMethod.GET)
-    public String testServiceB(@RequestParam Integer a,@RequestParam Integer b){
-    	RestTemplate restTemplate=new RestTemplate();
-    	return restTemplate.getForObject("http://localhost:7075/add?a="+a+"&b="+b, String.class);
+    @ApiOperation(value = "b->a测试", response = String.class)
+    @RequestMapping(value = "testServiceB", method = RequestMethod.GET)
+    public String testServiceB(@RequestParam Integer a, @RequestParam Integer b) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://localhost:7076/add?a=" + a + "&b=" + b, String.class);
     }
-    
+
 }
